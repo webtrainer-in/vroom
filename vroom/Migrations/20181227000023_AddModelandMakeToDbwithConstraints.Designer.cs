@@ -9,8 +9,8 @@ using vroom.AppDbContext;
 namespace vroom.Migrations
 {
     [DbContext(typeof(VroomDbContext))]
-    [Migration("20181222104631_AddModelandMaketoDb")]
-    partial class AddModelandMaketoDb
+    [Migration("20181227000023_AddModelandMakeToDbwithConstraints")]
+    partial class AddModelandMakeToDbwithConstraints
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,7 +26,9 @@ namespace vroom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 
@@ -41,7 +43,9 @@ namespace vroom.Migrations
 
                     b.Property<int>("MakeID");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 

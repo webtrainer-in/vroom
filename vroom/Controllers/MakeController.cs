@@ -12,8 +12,18 @@ namespace vroom.Controllers
         //make/bikes
         public IActionResult Bikes()
         {
-            Make make = new Make { Id=1, Name = "Harley Davidson" };
-            return View(make);
+            Make make = new Make { Id = 1, Name = "Harley Davidson" };
+            return View(make);            
+            //return Content("Hey this is the string from helper method");                        
+            //return Redirect("/home");
+            //return RedirectToAction("About", "Home");
+            //return new EmptyResult();            
         }
+
+        public IActionResult ByYearMonth(int year, int month)
+        {
+            return Content(year + ";" + month);
+        }
+
     }
 }

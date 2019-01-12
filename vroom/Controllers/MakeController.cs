@@ -9,17 +9,17 @@ namespace vroom.Controllers
 {
     public class MakeController : Controller
     {
+        //make
         //make/bikes
+        [Route("Make")]
+        [Route("Make/Bikes")]
         public IActionResult Bikes()
         {
             Make make = new Make { Id = 1, Name = "Harley Davidson" };
             return View(make);            
-            //return Content("Hey this is the string from helper method");                        
-            //return Redirect("/home");
-            //return RedirectToAction("About", "Home");
-            //return new EmptyResult();            
+           
         }
-
+        [Route("make/bikes/{year:int:length(4)}/{month:int:range(1,13)}")]
         public IActionResult ByYearMonth(int year, int month)
         {
             return Content(year + ";" + month);

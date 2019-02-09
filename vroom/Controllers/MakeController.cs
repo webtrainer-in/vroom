@@ -43,6 +43,7 @@ namespace vroom.Controllers
         }
 
         //HTTP Get Method
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             var make = _db.Makes.Find(id);
@@ -55,7 +56,7 @@ namespace vroom.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, Make make)
+        public IActionResult Edit(Make make)
         {
             if (ModelState.IsValid)
             {
@@ -63,9 +64,7 @@ namespace vroom.Controllers
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-
             return View(make);
-
         }
 
         [HttpPost]

@@ -1,0 +1,34 @@
+﻿@model vroom.Models.ViewModels.ModelViewModel
+@using vroom.Extensions
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Edit Model of Vehicle</h2>
+<form method="post" asp-action="Edit">
+    <input hidden asp-for="Model.Id" />
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Makes"></label>
+        </div>
+        <div class="col-4">
+            <select asp-for="Model.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control"></select>           
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Model.Name"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="Model.Name" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" asp-route-id="@Model.Model.Id" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+</form>
+

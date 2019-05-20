@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vroom.AppDbContext;
 
 namespace vroom.Migrations
 {
     [DbContext(typeof(VroomDbContext))]
-    partial class VroomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190502074423_AddPhoneandFlagtoUser")]
+    partial class AddPhoneandFlagtoUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

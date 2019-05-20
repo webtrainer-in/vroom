@@ -34,8 +34,11 @@ namespace vroom
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             }); 
             services.AddDbContext<VroomDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<VroomDbContext>();
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                .AddEntityFrameworkStores<VroomDbContext>()
+                .AddDefaultUI()
+                .AddDefaultTokenProviders();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

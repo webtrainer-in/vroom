@@ -37,8 +37,7 @@ namespace vroom
             services.AddIdentity<IdentityUser,IdentityRole>()
                 .AddEntityFrameworkStores<VroomDbContext>()
                 .AddDefaultUI()
-                .AddDefaultTokenProviders();
-
+                .AddDefaultTokenProviders();            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

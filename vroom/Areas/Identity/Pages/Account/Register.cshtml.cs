@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using vroom.Helpers;
 using vroom.Models;
 
 namespace vroom.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles =Roles.Admin)]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -92,23 +93,23 @@ namespace vroom.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //Create roles if not exisits
-                    if(!await _roleManager.RoleExistsAsync("Admin"))
+                    if(!await _roleManager.RoleExistsAsync(Roles.Admin))
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                        await _roleManager.CreateAsync(new IdentityRole(Roles.Admin));
                     }
-                    if (!await _roleManager.RoleExistsAsync("Executive"))
+                    if (!await _roleManager.RoleExistsAsync(Roles.Executive))
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("Executive"));
+                        await _roleManager.CreateAsync(new IdentityRole(Roles.Executive));
                     }
 
                     //Assign user to a role as per the check box selection
                     if(Input.IsAdmin)
                     {
-                        await _userManager.AddToRoleAsync(user, "Admin");
+                        await _userManager.AddToRoleAsync(user, Roles.Admin);
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, "Executive");
+                        await _userManager.AddToRoleAsync(user, Roles.Executive);
                     }
 
                     _logger.LogInformation("User created a new account with password.");

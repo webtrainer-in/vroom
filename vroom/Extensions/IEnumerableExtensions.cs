@@ -8,7 +8,7 @@ namespace vroom.Extensions
 {
     public static class IEnumerableExtensions
     {
-        public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> Items, int selectedValue = 1)
+        public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> Items, int selectedValue = 0)
         {
             List<SelectListItem> List = new List<SelectListItem>();
             SelectListItem sli = new SelectListItem

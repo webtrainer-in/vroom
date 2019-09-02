@@ -10,6 +10,9 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -34,9 +37,10 @@
                          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                              <a class="dropdown-item" asp-controller="Make" asp-action="Index">Makes</a>
                              <a class="dropdown-item" asp-controller="Model" asp-action="Index">Models</a>
-                             @if(User.IsInRole(Roles.Admin))
+                             <a class="dropdown-item" asp-controller="Bike" asp-action="Index">Bikes</a>
+                             @if (User.IsInRole(Roles.Admin))
                              {
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Add User</a>
+                                 <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Add User</a>
                              }
                          </div>
                 </li>

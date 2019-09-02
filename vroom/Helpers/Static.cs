@@ -10,4 +10,9 @@ namespace vroom.Helpers
         public const string Admin = "Admin";
         public const string Executive = "Executive";
     }
+
+    public class Image
+    {
+        public const string BikeImagePath = @"images\Bike\";
+    }
 }

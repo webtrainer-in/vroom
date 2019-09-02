@@ -1,0 +1,122 @@
+﻿@model vroom.Models.ViewModels.BikeViewModel
+@using vroom.Extensions
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 class="text-info">Edit Bike</h2>
+<form method="post" enctype="multipart/form-data" asp-action="Edit">
+    <input hidden asp-for="Bike.Id" />
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Makes"></label>
+        </div>
+        <div class="col-4">
+            <select asp-for="Bike.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control"></select>
+            <span asp-validation-for="Bike.MakeID" class="text-danger"></span>
+        </div>
+        <div class="col-auto">
+            <label asp-for="Bike.ImagePath"></label>
+        </div>
+        <div class="col-3">
+            <input type="file" name="files" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Models"></label>
+        </div>
+
+        <div class="col-4">
+            <select asp-for="Bike.ModelID" asp-items="Model.Models.ToSelectListItem()" class="form-control"></select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.Year"></label>
+        </div>
+
+        <div class="col-4">
+            <Input asp-for="Bike.Year" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.Mileage"></label>
+        </div>
+
+        <div class="col-4">
+            <Input asp-for="Bike.Mileage" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.Price"></label>
+        </div>
+
+        <div class="col-4">
+            <Input asp-for="Bike.Price" class="form-control" />
+            <span asp-validation-for="Bike.Price" class="text-danger"></span>
+        </div>
+        <div class="col-1">
+            <label asp-for="Bike.Currency"></label>
+        </div>
+
+        <div class="col-2">
+            <select asp-for="Bike.Currency" asp-items="Model.Currencies.ToSelectListItem()" class="form-control"></select>
+            <span asp-validation-for="Bike.Currency" class="text-danger"></span>
+        </div>
+
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.Features"></label>
+        </div>
+
+        <div class="col-4">
+            <textarea asp-for="Bike.Features" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.SellerName"></label>
+        </div>
+
+        <div class="col-4">
+            <Input asp-for="Bike.SellerName" class="form-control" />
+            <span asp-validation-for="Bike.SellerName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.SellerEmail"></label>
+        </div>
+
+        <div class="col-4">
+            <Input asp-for="Bike.SellerEmail" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="Bike.SellerPhone"></label>
+        </div>
+
+        <div class="col-4">
+            <Input asp-for="Bike.SellerPhone" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Update" />
+        <a asp-action="Index" class="btn btn-success">Back</a>
+    </div>
+</form>
+

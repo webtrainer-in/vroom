@@ -27,7 +27,7 @@ namespace vroom.Data
         public async void Initialize()    
         {
             //Add pending migration if exists
-            if (_db.Database.GetPendingMigrations().Count()>0)
+            if (_db.Database.GetPendingMigrations().Count()==0)
             {
                 _db.Database.Migrate();
             }

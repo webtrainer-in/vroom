@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vroom.AppDbContext;
 
 namespace vroom.Migrations
 {
     [DbContext(typeof(VroomDbContext))]
-    partial class VroomDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190825123549_AddBikes")]
+    partial class AddBikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,13 +193,11 @@ namespace vroom.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Currency")
-                        .HasMaxLength(10);
+                    b.Property<string>("Currency");
 
                     b.Property<string>("Features");
 
-                    b.Property<string>("ImagePath")
-                        .HasMaxLength(100);
+                    b.Property<string>("ImagePath");
 
                     b.Property<int>("MakeID");
 
@@ -207,16 +207,13 @@ namespace vroom.Migrations
 
                     b.Property<int>("Price");
 
-                    b.Property<string>("SellerEmail")
-                        .HasMaxLength(50);
+                    b.Property<string>("SellerEmail");
 
                     b.Property<string>("SellerName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.Property<string>("SellerPhone")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                        .IsRequired();
 
                     b.Property<int>("Year");
 

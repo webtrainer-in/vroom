@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using vroom.Extensions;
 
 namespace vroom.Models
 {
     public class Bike
     {
+        
         public int Id { get; set; }
 
         public Make Make { get; set; }
@@ -20,12 +22,12 @@ namespace vroom.Models
         [RegularExpression("^[1-9]*$", ErrorMessage = "Select Model")]
         public int ModelID { get; set; }
 
-        [Required(ErrorMessage = "Provide Year")]
-        [Range(2000, 2999, ErrorMessage = "Not with in the valid Year range")]
+        [Required(ErrorMessage = "Provide Year")]        
+        [YearRangeTillDate(2000,ErrorMessage = "Not with in the valid Year range")]
         public int Year { get; set; }
 
         [Required(ErrorMessage = "Enter Mileage")]
-        [Range(1,999999,ErrorMessage ="Not with in the valid mileage range")]
+        [Range(1,int.MaxValue,ErrorMessage ="Not with in the valid mileage range")]
         public int Mileage { get; set; }
 
         
@@ -45,7 +47,7 @@ namespace vroom.Models
         public string SellerPhone { get; set; }
 
         [Required(ErrorMessage = "Provide Price")]
-        [Range(1, 999999999, ErrorMessage = "Not with in the valid price range")]
+         [Range(1, 999999999, ErrorMessage = "Not with in the valid price range")]
         public int Price { get; set; }
 
         [Required]

@@ -8,7 +8,8 @@
 <br />
 <h2 class="text-info">Add Bike</h2>
 <form method="post" enctype="multipart/form-data" asp-action="Create">
-    <div class="form-group row">
+
+        <div class="form-group row">
         <div class="col-2">
             <label asp-for="Makes"></label>
         </div>
@@ -23,7 +24,6 @@
             <input type="file" name="files" class="form-control" />
         </div>
     </div>
-
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Models"></label>
@@ -34,7 +34,6 @@
                 <span asp-validation-for="Bike.ModelID" class="text-danger"></span>
             </div>
         </div>
-
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Bike.Year"></label>                
@@ -45,7 +44,6 @@
                 <span asp-validation-for="Bike.Year" class="text-danger"></span>
             </div>
         </div>
-
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Bike.Mileage"></label>
@@ -56,7 +54,6 @@
                 <span asp-validation-for="Bike.Mileage" class="text-danger"></span>
             </div>
         </div>
-
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Bike.Price"></label>
@@ -95,7 +92,6 @@
                 <span asp-validation-for="Bike.SellerName" class="text-danger"></span>
             </div>
         </div>
-
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Bike.SellerEmail"></label>
@@ -106,7 +102,6 @@
                 <span asp-validation-for="Bike.SellerEmail" class="text-danger"></span>
             </div>
         </div>
-
         <div class="form-group row">
             <div class="col-2">
                 <label asp-for="Bike.SellerPhone"></label>

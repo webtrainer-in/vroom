@@ -57,29 +57,47 @@ namespace vroom.Controllers
             _db.Bikes.Add(BikeVM.Bike);
             _db.SaveChanges();
 
+            ///////////////////
+            //Save Bike Logic
+            ///////////////////
+            
+            //Get BikeID we have saved in database            
             var BikeID = BikeVM.Bike.Id;
 
-            //Save Image
+            //Get wwrootPath to save the file on server
             string wwrootPath = _hostingEnvironment.WebRootPath;
+
+            //Get the Uploaded files
             var files = HttpContext.Request.Form.Files;
 
+            //Get the reference of DBSet for the bike we have saved in our database
             var SavedBike = _db.Bikes.Find(BikeID);
 
+
+            //Upload the file on server and save the path in database if user have submitted file
             if (files.Count != 0)
             {
+                //Extract the extension of submitted file
                 var Extension = Path.GetExtension(files[0].FileName);
+
+                //Create the relative image path to be saved in database table 
                 var RelativeImagePath = Image.BikeImagePath + BikeID + Extension;
+
+                //Create absolute image path to upload the physical file on server
                 var AbsImagePath = Path.Combine(wwrootPath, RelativeImagePath);
 
 
+                //Upload the file on server using Absolute Path
                 using (var filestream = new FileStream(AbsImagePath, FileMode.Create))
                 {
                     files[0].CopyTo(filestream);
                 }
+
+                //Set the path in database
                 SavedBike.ImagePath = RelativeImagePath;
                 _db.SaveChanges();
             }
-
+            ///////////////////////
 
             return RedirectToAction(nameof(Index));
         }

@@ -59,13 +59,7 @@ namespace vroom.Controllers
             {
                 return View(ModelVM);
             }
-            //var MakeFromDB = _db.Models.Where(m => m.Id == id).FirstOrDefault();
-            //if(MakeFromDB==null)
-            //{
-            //    return NotFound();
-            //}
-            //MakeFromDB.Name = ModelVM.Model.Name;
-            //MakeFromDB.MakeID = ModelVM.Model.MakeID;   
+ 
             _db.Update(ModelVM.Model);
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -96,7 +90,12 @@ namespace vroom.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
+        [AllowAnonymous]
+        [HttpGet("api/models/{MakeID}")]
+        public IEnumerable<Model> Models(int MakeID)
+        {
+            return _db.Models.ToList()
+                .Where(m => m.MakeID==MakeID);
+        }
     }
 }

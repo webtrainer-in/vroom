@@ -5,6 +5,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        var MakeDDL = $("#Make");
+        var ModelDDL = $("#Model");
+        ModelDDL.prop('disabled', true);
+
+        MakeDDL.change(function () {
+            if ($(this).val() == "0") {
+                ModelDDL.prop('disabled', true);
+                ModelDDL.val("0");
+            }
+            else {                
+                $.ajax({
+                    url: "/api/models/" + $(this).val(),
+                    method: "get",
+                    success: function (data) {
+                        ModelDDL.prop('disabled', false);
+                        ModelDDL.empty();
+                        ModelDDL.append($('<option/>', { value: '0', text: '--Select Model--' }));
+                        $(data).each(function (index, item) {
+                            ModelDDL.append($('<option/>', { value: item.id, text: item.name}));
+                        });
+                    }
+                });
+            }
+        });
+
+    });
+</script>
 <br />
 <h2 class="text-info">Add Bike</h2>
 <form method="post" enctype="multipart/form-data" asp-action="Create">
@@ -14,7 +43,7 @@
             <label asp-for="Makes"></label>
         </div>
         <div class="col-4">
-            <select asp-for="Bike.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control"></select>
+            <select asp-for="Bike.MakeID" asp-items="Model.Makes.ToSelectListItem()" class="form-control" id="Make"></select>
             <span asp-validation-for="Bike.MakeID" class="text-danger"></span>
         </div>
         <div class="col-auto">
@@ -30,7 +59,7 @@
             </div>
 
             <div class="col-4">
-                <select asp-for="Bike.ModelID" asp-items="Model.Models.ToSelectListItem()" class="form-control"></select>
+                <select asp-for="Bike.ModelID" asp-items="Model.Models.ToSelectListItem()" class="form-control" id="Model"></select>
                 <span asp-validation-for="Bike.ModelID" class="text-danger"></span>
             </div>
         </div>

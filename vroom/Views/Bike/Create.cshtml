@@ -16,12 +16,13 @@
                 ModelDDL.prop('disabled', true);
                 ModelDDL.val("0");
             }
-            else {                
+            else {
                 $.ajax({
                     url: "/api/models/" + $(this).val(),
                     method: "get",
                     success: function (data) {
                         ModelDDL.prop('disabled', false);
+                        console.log("Success:");
                         ModelDDL.empty();
                         ModelDDL.append($('<option/>', { value: '0', text: '--Select Model--' }));
                         $(data).each(function (index, item) {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vroom.AppDbContext;
+using vroom.Controllers.Resources;
 using vroom.Models;
 using vroom.Models.ViewModels;
 
@@ -92,10 +93,33 @@ namespace vroom.Controllers
 
         [AllowAnonymous]
         [HttpGet("api/models/{MakeID}")]
-        public IEnumerable<Model> Models(int MakeID)
+        public IEnumerable<ModelResources> Models(int MakeID)
         {
-            return _db.Models.ToList()
-                .Where(m => m.MakeID==MakeID);
+            var models = _db.Models.ToList();
+            var modelResources = models
+                .Select(m => new ModelResources
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    MakeID = m.MakeID
+                }).ToList()
+                .Where(m => m.MakeID == MakeID);
+            return modelResources;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("api/models")]
+        public IEnumerable<ModelResources> Models()
+        {
+            //return _db.Models.ToList();                
+            var models = _db.Models.ToList();
+            var modelResources = models
+                .Select(m => new ModelResources
+                {
+                    Id = m.Id,
+                    Name = m.Name
+                }).ToList();
+            return modelResources;
         }
     }
 }

@@ -13,6 +13,8 @@ using vroom.AppDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using vroom.Data;
+using AutoMapper;
+using vroom.MappingProfiles;
 
 namespace vroom
 {
@@ -33,7 +35,8 @@ namespace vroom
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            }); 
+            });
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddDbContext<VroomDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddIdentity<IdentityUser,IdentityRole>()
                 .AddEntityFrameworkStores<VroomDbContext>()

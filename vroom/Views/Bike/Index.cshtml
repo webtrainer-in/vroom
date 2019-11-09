@@ -1,6 +1,9 @@
-﻿@model IEnumerable<vroom.Models.Bike>
+﻿@model cloudscribe.Pagination.Models.PagedResult<Bike>
 @{
     ViewData["Title"] = "Index";
+    ViewData["Controller"] = "Bike";
+    ViewData["Action"] = "Index";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,10 +26,10 @@
                 <th>Seller Information</th>                
                 <th></th>
             </tr>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Data)
             {
             <tr>
-                <td><img src="@Html.DisplayFor(m => item.ImagePath)" width="150px" height="100px" /></td>
+                <td><img src="@Html.DisplayFor(m => item.ImagePath)" width="150" height="100" /></td>
                 <td>
                     <b>@Html.DisplayFor(m => item.Make.Name) (@Html.DisplayFor(m => item.Year))</b> <br />
                     <b>Model: </b>@Html.DisplayFor(m => item.Model.Name)<br />
@@ -37,12 +40,12 @@
                     <b>Name: </b> @Html.DisplayFor(m => item.SellerName)<br />
                     <b>Email: </b>@Html.DisplayFor(m => item.SellerEmail)<br />
                     <b>Phone: </b>@Html.DisplayFor(m => item.SellerPhone)
-                </td>
+                </td>                
                 <partial name="_TableButtonPartials" model="item.Id" />
             </tr>
             }
-
-        </table>
+        </table> 
+        <partial name="_PaginationPartial" view-data="ViewData" model="Model" />
     </div>
 </div>
 

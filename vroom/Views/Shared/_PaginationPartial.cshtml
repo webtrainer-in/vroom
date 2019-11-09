@@ -1,0 +1,12 @@
+﻿<cs-pager cs-paging-pagenumber=(int)Model.PageNumber
+          cs-paging-totalitems=(int)Model.TotalItems
+          cs-paging-pagesize=Model.PageSize
+          cs-pagenumber-param="pagenumber"
+          asp-controller=@ViewData["Controller"]
+          asp-action=@ViewData["Action"]
+          cs-pager-li-current-class="page-item active"
+          cs-pager-li-other-class="page-item"
+          cs-pager-li-non-active-class="page-item disabled"
+          cs-pager-link-current-class="page-link"
+          cs-pager-link-other-class="page-link">
+</cs-pager>

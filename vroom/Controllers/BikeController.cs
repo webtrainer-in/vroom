@@ -145,61 +145,7 @@ namespace vroom.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost, ActionName("Edit")]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditPost()
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(BikeVM);
-            }
-
-            //Save Image
-            string wwrootPath = _hostingEnvironment.WebRootPath;
-            var files = HttpContext.Request.Form.Files;
-            var BikeID = BikeVM.Bike.Id;
-            var SavedBike = _db.Bikes.Find(BikeID);
-
-            if (files.Count != 0)
-            {
-                var Extension = Path.GetExtension(files[0].FileName);
-                var RelativeImagePath = Image.BikeImagePath + BikeID + Extension;
-                var AbsImagePath = Path.Combine(wwrootPath, RelativeImagePath);
-
-
-                using (var filestream = new FileStream(AbsImagePath, FileMode.Create))
-                {
-                    files[0].CopyTo(filestream);
-                }
-                SavedBike.ImagePath = RelativeImagePath;
-            }
-            SavedBike.MakeID = BikeVM.Bike.MakeID;
-            SavedBike.ModelID= BikeVM.Bike.ModelID;
-            SavedBike.Year = BikeVM.Bike.Year;            
-            SavedBike.Mileage = BikeVM.Bike.Mileage;
-            SavedBike.Price = BikeVM.Bike.Price;
-            SavedBike.Currency = BikeVM.Bike.Currency;
-            SavedBike.Features = BikeVM.Bike.Features;
-            SavedBike.SellerName = BikeVM.Bike.SellerName;
-            SavedBike.SellerEmail = BikeVM.Bike.SellerEmail;
-            SavedBike.SellerPhone = BikeVM.Bike.SellerPhone;
-            _db.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
-        //HTTP Get Method
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            BikeVM.Bike = _db.Bikes.Include(m => m.Make).Include(m => m.Model).SingleOrDefault(m => m.Id == id);
-            if (BikeVM.Bike == null)
-            {
-                return NotFound();
-            }
-
-            return View(BikeVM);
-        }
-        [HttpPost]
+         [HttpPost]
         public IActionResult Delete(int id)
         {
             Bike Bike = _db.Bikes.Find(id);

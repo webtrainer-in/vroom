@@ -2,6 +2,8 @@
           cs-paging-totalitems=(int)Model.TotalItems
           cs-paging-pagesize=Model.PageSize
           cs-pagenumber-param="pagenumber"
+          asp-route-searchString="@ViewBag.CurrentFilter"
+          asp-route-sortOrder="@ViewBag.CurrentSortOrder"  
           asp-controller=@ViewData["Controller"]
           asp-action=@ViewData["Action"]
           cs-pager-li-current-class="page-item active"

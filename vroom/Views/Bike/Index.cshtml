@@ -8,7 +8,16 @@
 }
 
 <br /><br />
+<form asp-action="Index" method="get">
+    <div>
+        <p>
+            Find Make: <input type="text" name="searchString" value="@ViewBag.CurrentFilter"/>
+            <input type="submit" value="Search" class="btn btn-info" /> | 
+            <a asp-action="Index">Remove Filter</a>
 
+        </p>
+    </div>
+</form>
 <div class="row">
     <div class="col-6">
         <h2 class="text-info">Bikes</h2>
@@ -22,7 +31,14 @@
             <tr class="table-info">
                 <th>Bike Photo</th>
                 <th>Bike Detail</th>
-                <th>Price</th>
+                <th>
+                    <a asp-action="Index" 
+                       asp-route-searchString="@ViewBag.CurrentFilter" 
+                       asp-route-sortOrder="@ViewBag.PriceSortParam"
+                       asp-route-pageNumber="@Model.PageNumber">
+                       Price
+                    </a>
+                </th>
                 <th>Seller Information</th>                
                 <th></th>
             </tr>

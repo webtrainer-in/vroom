@@ -35,24 +35,44 @@ namespace vroom.Controllers
                 Bike = new Models.Bike()                         
             };
         }
-        public IActionResult Index2()
-        {
-            var Bikes = _db.Bikes.Include(m => m.Make).Include(m =>m.Model);
-            return View(Bikes.ToList());
-        }
 
-        public IActionResult Index(int pageNumber=1, int pageSize=1)
+        public IActionResult Index(string searchString, string sortOrder, int pageNumber=1, int pageSize=3)
         {
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentFilter = searchString;
+            ViewBag.PriceSortParam = String.IsNullOrEmpty(sortOrder) ? "price_desc" : "";
             int ExcludeRecords = (pageSize * pageNumber) - pageSize;
 
-            var Bikes = _db.Bikes.Include(m => m.Make).Include(m => m.Model)
-                .Skip(ExcludeRecords)
+            var Bikes = from b in _db.Bikes.Include(m => m.Make).Include(m => m.Model)
+                        select b;
+
+            var BikeCount = Bikes.Count();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                Bikes = Bikes.Where(b => b.Make.Name.Contains(searchString));
+                BikeCount = Bikes.Count();
+            }
+
+            //Sorting Logic
+            switch(sortOrder)
+            {
+                case "price_desc":
+                    Bikes = Bikes.OrderByDescending(b => b.Price);
+                    break;
+                default:
+                    Bikes = Bikes.OrderBy(b => b.Price);
+                    break;
+            }
+
+            Bikes =Bikes
+            .Skip(ExcludeRecords)
                 .Take(pageSize);
 
             var result = new PagedResult<Bike>
             {
                 Data = Bikes.AsNoTracking().ToList(),
-                TotalItems = _db.Bikes.Count(),
+                TotalItems = BikeCount,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             };
@@ -65,6 +85,8 @@ namespace vroom.Controllers
         {
             return View(BikeVM);
         }
+
+
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public IActionResult CreatePost()

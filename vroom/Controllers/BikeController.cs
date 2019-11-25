@@ -81,6 +81,39 @@ namespace vroom.Controllers
             return View(result);
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            BikeVM.Bike = _db.Bikes.SingleOrDefault(b => b.Id == id);
+
+            //Filter the models associated to the selected make
+            BikeVM.Models = _db.Models.Where(m => m.MakeID == BikeVM.Bike.MakeID);
+            
+            if(BikeVM.Bike==null)
+            {
+                return NotFound();
+            }
+            return View(BikeVM);
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                BikeVM.Makes = _db.Makes.ToList();
+                BikeVM.Models = _db.Models.ToList();
+                return View(BikeVM);
+            }
+            _db.Bikes.Update(BikeVM.Bike);
+            UploadImageIfAvailable();
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
         public IActionResult Create()
         {
             return View(BikeVM);
@@ -98,12 +131,16 @@ namespace vroom.Controllers
                 return View(BikeVM);
             }
             _db.Bikes.Add(BikeVM.Bike);
-            _db.SaveChanges();
 
-            ///////////////////
-            //Save Bike Logic
-            ///////////////////
+            UploadImageIfAvailable();
+
+            _db.SaveChanges();
             
+            return RedirectToAction(nameof(Index));
+        }
+
+        private void UploadImageIfAvailable()
+        {
             //Get BikeID we have saved in database            
             var BikeID = BikeVM.Bike.Id;
 
@@ -138,12 +175,9 @@ namespace vroom.Controllers
 
                 //Set the path in database
                 SavedBike.ImagePath = RelativeImagePath;
-                _db.SaveChanges();
+               }
             }
-            ///////////////////////
 
-            return RedirectToAction(nameof(Index));
-        }
 
          [HttpPost]
         public IActionResult Delete(int id)

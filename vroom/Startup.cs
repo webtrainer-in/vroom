@@ -56,7 +56,7 @@ namespace vroom
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Bike/Error");
                 app.UseHsts();
             }
 
@@ -68,16 +68,9 @@ namespace vroom
             
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    "ByYearMonth",
-                    "make/bikes/{year:int:length(4)}/{month:int:range(1,12)}",
-                    new {controller="make", action="ByYearMonth"},
-                    new {year=@"2017|2018"}
-                    );
-
                   routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"                    
+                    template: "{controller=Bike}/{action=Index}/{id?}"                    
                 );
             });
         }

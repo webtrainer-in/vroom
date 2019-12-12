@@ -12,9 +12,11 @@ using vroom.Helpers;
 using vroom.Models;
 using vroom.Models.ViewModels;
 using cloudscribe.Pagination.Models;
+using System.Diagnostics;
 
 namespace vroom.Controllers
-{
+{   
+    [Authorize(Roles = Roles.Admin +"," + Roles.Executive)]
     public class BikeController : Controller
     {
         private readonly VroomDbContext _db;
@@ -36,6 +38,7 @@ namespace vroom.Controllers
             };
         }
 
+        [AllowAnonymous]
         public IActionResult Index(string searchString, string sortOrder, int pageNumber=1, int pageSize=3)
         {
             ViewBag.CurrentSortOrder = sortOrder;
@@ -179,7 +182,7 @@ namespace vroom.Controllers
             }
 
 
-         [HttpPost]
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             Bike Bike = _db.Bikes.Find(id);
@@ -191,5 +194,25 @@ namespace vroom.Controllers
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult View(int id)
+        {
+            BikeVM.Bike = _db.Bikes.SingleOrDefault(b => b.Id == id);
+
+            if (BikeVM.Bike == null)
+            {
+                return NotFound();
+            }
+            return View(BikeVM);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
 }

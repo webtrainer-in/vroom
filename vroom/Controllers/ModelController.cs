@@ -10,10 +10,11 @@ using vroom.AppDbContext;
 using vroom.Controllers.Resources;
 using vroom.Models;
 using vroom.Models.ViewModels;
+using vroom.Helpers;
 
 namespace vroom.Controllers
 {
-    [Authorize(Roles = "Admin,Executive")]
+    [Authorize(Roles = Roles.Admin+","+Roles.Executive)]
     public class ModelController : Controller
     {
         private readonly VroomDbContext _db;
